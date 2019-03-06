@@ -4,15 +4,17 @@
   <meta charset="utf-8"/>
   <title>Marked in the browser</title>
 
+  <link rel="stylesheet" href="../codemirror/lib/codemirror.css"/>
+
   <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+  <script src="../codemirror/lib/codemirror.js"></script>
+  <script src="../codemirror/addon/mode/overlay.js"></script>
+  <script src="../codemirror/mode/xml/xml.js"></script>
+  <script src="../codemirror/mode/markdown/markdown.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="codemirror/lib/codemirror.css"/>
-  <script src="codemirror/lib/codemirror.js"></script>
-  <script src="codemirror/mode/javascript/javascript.js"></script>
-  <script src="codemirror/mode/gfm/gfm.js"></script>
-  <script src="codemirror/addon/mode/overlay.js"></script>
-  <script src="codemirror/mode/xml/xml.js"></script>
-  <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="../codemirror/mode/gfm/gfm.js"></script>
+  <script src="../codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
   <script type="text/javascript" src="mymaker.js"></script>
 
   <style>
@@ -39,12 +41,20 @@
         <div id="codeeditor"  class="box"></div> 
         <div id="preview" class="box"></div>
     </div><br><br>
-    <button onclick="myFunction()" style="float:center;">Change Text</button>  
+    <!-- <button onclick="myFunction()" >Change Text</button>   -->
     <script>
         var editor = CodeMirror(document.getElementById("codeeditor"), {
             mode: "gfm",
             lineNumbers: true,
             theme: "default"
+        });
+
+        editor.on("change", function(){
+            u("#preview").empty();
+            var display = editor.getValue();
+            console.log("Display" + display);
+       
+            u("#preview").html(marked(display));
         });
     </script>
 

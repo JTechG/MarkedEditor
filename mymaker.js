@@ -1,17 +1,15 @@
+var el = domvm.defineElement,
+    cv = domvm.createView;
 
+var HelloView = {
+    render: function(vm, data) {
+        return el("h1", {style: "color: red;"}, "Hello " + data.name);
+    }
+};
 
-function myFunction() {
-       u("#preview").empty();
-       //var display = u('#codeeditor').nodes[0].value;
-       var display = editor.getValue();
-       console.log("Display" + display);
-       
-       u("#preview").html(marked(display));
-}
+var data = {name: "Leon"};
 
-
-
-
+var vm = cv(HelloView, data).mount(document.body);
 
 
 
